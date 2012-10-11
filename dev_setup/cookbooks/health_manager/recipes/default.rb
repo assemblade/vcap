@@ -11,4 +11,12 @@ template node[:health_manager][:config_file] do
   mode 0644
 end
 
+
+bash "Git Clone health_manager" do
+  cwd "#{node[:cloudfoundry][:home]}"
+  code <<-EOH
+    [ -e #{node[:cloudfoundry][:home]}/health_manager ] || git clone https://github.com/cloudfoundry/health_manager.git
+  EOH
+end
+
 cf_bundle_install(File.expand_path(File.join("cloud_controller", "health_manager"), node[:cloudfoundry][:home]))

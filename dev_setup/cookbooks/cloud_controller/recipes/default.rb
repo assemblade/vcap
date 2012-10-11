@@ -6,6 +6,12 @@
 #
 #
 
+include_recipe "deployment"
+include_recipe "uaa"
+include_recipe "service_broker"
+include_recipe "python"
+include_recipe "erlang"
+
 template node[:cloud_controller][:config_file] do
   path File.join(node[:deployment][:config_path], node[:cloud_controller][:config_file])
   source "cloud_controller.yml.erb"
@@ -35,6 +41,15 @@ template node[:cloud_controller][:runtimes_file] do
    owner node[:deployment][:user]
    mode 0644
 end
+
+
+bash "Git Clone cloud_controller" do
+  cwd "#{node[:cloudfoundry][:home]}"
+  code <<-EOH
+    [ -e #{node[:cloudfoundry][:home]}/cloud_controller ] || git clone https://github.com/cloudfoundry/cloud_controller.git
+  EOH
+end
+
 
 cf_bundle_install(File.expand_path(File.join("cloud_controller", "cloud_controller"), node[:cloudfoundry][:home]))
 

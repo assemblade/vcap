@@ -6,7 +6,7 @@ module CloudFoundry
     bash "Bundle install for #{path}" do
       cwd path
       user node[:deployment][:user]
-      code "#{File.join(node[:ruby][:path], "bin", "bundle")} install"
+      code "#{File.join(node[:ruby][:bundlepath], "bin", "bundle")} install"
       only_if { ::File.exist?(File.join(path, 'Gemfile')) }
     end
   end
