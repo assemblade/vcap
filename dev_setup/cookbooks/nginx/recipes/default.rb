@@ -159,9 +159,21 @@ when "ubuntu"
     EOH
   end
 
+  
+  
+  bash "git clone router" do
+    code <<-EOH
+      if [ ! -e #{node[:cloudfoundry][:home]}/router ]
+      then
+        cd #{node[:cloudfoundry][:home]}
+        git clone https://github.com/cloudfoundry/router.git
+      fi
+    EOH
+  end
+  
   template "uls.lua" do
     path File.join(lua_module_path, "uls.lua")
-    source File.join(node[:lua][:plugin_source_path], "uls.lua")
+    source File.join(node[:cloudfoundry][:home], "router", "ext", "nginx", "uls.lua")
     local true
     owner node[:deployment][:user]
     mode 0644
@@ -169,7 +181,7 @@ when "ubuntu"
 
   template "tablesave.lua" do
     path File.join(lua_module_path, "tablesave.lua")
-    source File.join(node[:lua][:plugin_source_path], "tablesave.lua")
+    source File.join(node[:cloudfoundry][:home], "router", "ext", "nginx", "tablesave.lua")
     local true
     owner node[:deployment][:user]
     mode 0644

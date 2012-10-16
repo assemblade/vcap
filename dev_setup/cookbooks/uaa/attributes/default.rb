@@ -1,4 +1,7 @@
 include_attributes "uaadb"
+include_attributes "tomcat"
+include_attributes "maven"
+
 default[:uaadb][:host] = "localhost"
 
 default[:uaa][:jwt_secret] = "uaa_jwt_secret"

@@ -6,11 +6,21 @@
 #
 #
 
-include_recipe "deployment"
-include_recipe "uaa"
-include_recipe "service_broker"
-include_recipe "python"
-include_recipe "erlang"
+
+#bash "Install active reford" do
+#  code <<-EOH
+#    if [ ! -e #{node[:ruby][:gempath]}/#{node[:ruby][:version]}/gems/activerecord-#{node[:blobstore_client][:activerecord_version]} ]
+#    then
+#      echo Installing
+#      source /usr/local/rvm/scripts/rvm
+#      gem install blobstore_client
+#    else
+#      echo blobstore_client already installed
+#    fi
+#  EOH
+#end
+
+
 
 template node[:cloud_controller][:config_file] do
   path File.join(node[:deployment][:config_path], node[:cloud_controller][:config_file])
@@ -43,10 +53,13 @@ template node[:cloud_controller][:runtimes_file] do
 end
 
 
-bash "Git Clone cloud_controller" do
-  cwd "#{node[:cloudfoundry][:home]}"
+bash "git clone cloud_controller" do
   code <<-EOH
-    [ -e #{node[:cloudfoundry][:home]}/cloud_controller ] || git clone https://github.com/cloudfoundry/cloud_controller.git
+    if [ ! -e #{node[:cloudfoundry][:home]}/cloud_controller ]
+    then
+      cd #{node[:cloudfoundry][:home]}
+      git clone https://github.com/cloudfoundry/cloud_controller.git
+    fi
   EOH
 end
 
@@ -55,6 +68,30 @@ cf_bundle_install(File.expand_path(File.join("cloud_controller", "cloud_controll
 
 cf_pg_reset_user_password(:ccdb)
 
+
+bash "Initialise databse" do
+  code <<-EOH
+    if [ ! -e #{node[:cloudfoundry][:home]}/cloud_controller/.db_initialised ]
+    then
+      export CLOUD_CONTROLLER_CONFIG=#{node[:deployment][:config_path]}/cloud_controller.yml
+      cd #{node[:cloudfoundry][:home]}/cloud_controller/cloud_controller
+      rake db:migrate
+      if [ $? == 0 ]
+      then
+        touch #{node[:cloudfoundry][:home]}/cloud_controller/.db_initialised
+      fi
+    fi
+  EOH
+end
+
+
+
+directory "#{node[:cloudfoundry][:path]}/log" do
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
+end
 
 template "vcap_redis.conf" do
   path File.join(node[:deployment][:config_path], "vcap_redis.conf")

@@ -5,8 +5,5 @@
   "json_class": "Chef::Role",
   "description": "NATS message bus server",
   "chef_type": "role",
-  "run_list" : [ "recipe[deployment]",
-                 "recipe[essentials]",
-                 "recipe[ruby]",
-                 "recipe[nats_server]" ]
+  "run_list" : [ "recipe[nats_server]" ]
 }

@@ -12,6 +12,11 @@ database:
 jvm_args: -Xmx512m
 spring_profiles: postgresql
 
+uaa:
+    host: <%= node[:uaa][:host] %>
+    uris: <%= node[:uaa][:uris] %>
+
+
 cloud_controller:
   database:
     url: jdbc:postgresql://<%= node[:ccdb][:host] %>:<%= node[:ccdb][:port] %>/<%= node[:ccdb][:database] %>

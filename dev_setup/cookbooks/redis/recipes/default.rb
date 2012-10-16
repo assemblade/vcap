@@ -25,6 +25,8 @@ node[:redis][:supported_versions].each do |version, install_version|
     owner node[:deployment][:user]
     group node[:deployment][:group]
     mode "0755"
+    recursive true
+    action :create
   end
 
   %w[bin etc var].each do |dir|

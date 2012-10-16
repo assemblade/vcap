@@ -6,7 +6,6 @@
 #
 #
 
-include_recipe "deployment"
 
 %w{apt-utils build-essential libssl-dev
    libxml2 libxml2-dev libxslt1.1 libxslt1-dev git-core sqlite3 libsqlite3-ruby
@@ -14,6 +13,11 @@ include_recipe "deployment"
   package p do
     action [:install]
   end
+end
+
+
+directory "#{node[:deployment][:setup_cache]}" do
+  action :create
 end
 
 machine =  node[:kernel][:machine]
@@ -43,10 +47,3 @@ bash "Install libpq-dev" do
   EOH
 end
 
-if node[:deployment][:profile]
-  file node[:deployment][:profile] do
-    owner node[:deployment][:user]
-    group node[:deployment][:group]
-    content "export PATH=#{node[:ruby][:path]}/bin:`#{node[:ruby][:path]}/bin/gem env gempath`/bin:$PATH"
-  end
-end

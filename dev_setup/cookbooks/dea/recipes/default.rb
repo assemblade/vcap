@@ -11,10 +11,6 @@ end
 
 node[:dea][:runtimes].each do |runtime|
   case runtime
-  when "ruby19"
-    include_recipe "ruby"
-  when "ruby18"
-    include_recipe "ruby::ruby18"
   when "node06"
     include_recipe "node::node06"
   when "node08"
@@ -33,6 +29,24 @@ template node[:dea][:config_file] do
   source "dea.yml.erb"
   owner node[:deployment][:user]
   mode 0644
+end
+
+template "dea" do
+  path File.join("", "etc", "init.d", "dea")
+  source "dea.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
+
+bash "git clone dea" do
+  code <<-EOH
+    if [ ! -e #{node[:cloudfoundry][:home]}/dea ]
+    then
+      cd #{node[:cloudfoundry][:home]}
+      git clone https://github.com/cloudfoundry/dea.git
+    fi
+  EOH
 end
 
 cf_bundle_install(File.join(node[:cloudfoundry][:home], "dea"))

@@ -1,4 +1,4 @@
-include_attribute "deployment"
+# include_attribute "deployment"
 
 include_attribute "backup"
 include_attribute "service_lifecycle"

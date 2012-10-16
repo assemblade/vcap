@@ -1,7 +1,13 @@
-include_recipe "deployment"
+include_attribute "deployment"
 include_attribute "postgresql"
-include_attributes "uaa"
-include_attributes "service_lifecycle"
+include_attribute "uaa"
+include_attribute "service_lifecycle"
+include_attribute "service_broker"
+include_attribute "python"
+include_attribute "erlang"
+include_attribute "java7"
+include_attribute "node::node04"
+
 
 default[:deployment][:welcome] = "VMware's Cloud Application Platform"
 

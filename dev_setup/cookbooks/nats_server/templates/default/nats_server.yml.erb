@@ -1,5 +1,5 @@
 ---
-net: <%= node[:nats_server][:host] %>
+net: <%= node[:nats_server][:public_address] %>
 port: <%= node[:nats_server][:port] %>
 
 pid_file: /var/run/nats_server.pid

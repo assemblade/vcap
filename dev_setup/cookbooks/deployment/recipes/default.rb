@@ -47,26 +47,26 @@ var_vcap = File.join("", "var", "vcap")
   end
 end
 
-template node[:deployment][:info_file] do
-  path node[:deployment][:info_file]
-  source "deployment_info.json.erb"
-  owner node[:deployment][:user]
-  mode 0644
-  variables({
-    :name => node[:deployment][:name],
-    :ruby_bin_dir => File.join(node[:ruby][:path], "bin"),
-    :maven_bin_dir => File.join(node[:maven][:path], "bin"),
-    :cloudfoundry_home => node[:cloudfoundry][:home],
-    :cloudfoundry_path => node[:cloudfoundry][:path],
-    :deployment_log_path => node[:deployment][:log_path]
-  })
-end
-
-file node[:deployment][:local_run_profile] do
-  owner node[:deployment][:user]
-  group node[:deployment][:group]
-  content <<-EOH
-    export PATH=#{node[:ruby][:path]}/bin:`#{node[:ruby][:path]}/bin/gem env gempath`/bin:#{node[:maven][:path]}/bin:$PATH
-    export CLOUD_FOUNDRY_CONFIG_PATH=#{node[:deployment][:config_path]}
-  EOH
-end
+#template node[:deployment][:info_file] do
+#  path node[:deployment][:info_file]
+#  source "deployment_info.json.erb"
+#  owner node[:deployment][:user]
+#  mode 0644
+#  variables({
+#    :name => node[:deployment][:name],
+#    :ruby_bin_dir => File.join(node[:ruby][:path], "bin"),
+#    :maven_bin_dir => File.join(node[:maven][:path], "bin"),
+#    :cloudfoundry_home => node[:cloudfoundry][:home],
+#    :cloudfoundry_path => node[:cloudfoundry][:path],
+#    :deployment_log_path => node[:deployment][:log_path]
+#  })
+#end
+#
+#file node[:deployment][:local_run_profile] do
+#  owner node[:deployment][:user]
+#  group node[:deployment][:group]
+#  content <<-EOH
+#    export PATH=#{node[:ruby][:path]}/bin:`#{node[:ruby][:path]}/bin/gem env gempath`/bin:#{node[:maven][:path]}/bin:$PATH
+#    export CLOUD_FOUNDRY_CONFIG_PATH=#{node[:deployment][:config_path]}
+#  EOH
+#end

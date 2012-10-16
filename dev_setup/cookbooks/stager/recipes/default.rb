@@ -21,4 +21,16 @@ template node[:stager][:platform] do
   mode 0644
 end
 
+
+bash "git clone stager" do
+  code <<-EOH
+    if [ ! -e #{node[:cloudfoundry][:home]}/stager ]
+    then
+      cd #{node[:cloudfoundry][:home]}
+      git clone https://github.com/cloudfoundry/stager.git
+    fi
+  EOH
+end
+
+
 cf_bundle_install(File.expand_path("stager", node[:cloudfoundry][:home]))
