@@ -1,0 +1,20 @@
+{
+  "name": "cf_server_all_in_one",
+  "default_attributes": {},
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Cloudfoundry Cloud Controller / Health Manager / Stager / NATS Server / Postgresql Server",
+  "chef_type": "role",
+  "run_list" : [ "recipe[deployment]",
+                 "recipe[essentials]",
+                 "recipe[postgresql]",
+                 "recipe[postgresql::system]",
+                 "recipe[ccdb]",
+                 "recipe[nginx]",
+                 "recipe[redis]",
+                 "recipe[health_manager]",
+                 "recipe[nats_server]",
+                 "recipe[stager]",
+                 "recipe[cloud_controller]",
+                 "recipe[imagemagick]"]
+}
