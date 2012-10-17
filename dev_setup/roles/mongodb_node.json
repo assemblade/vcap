@@ -6,7 +6,6 @@
   "chef_type": "role",
   "run_list" : ["recipe[deployment]",
                 "recipe[essentials]",
-                "recipe[ruby]",
                 "recipe[mongodb]",
                 "recipe[mongodb::node]",
                 "recipe[mongodb::backup]"]
