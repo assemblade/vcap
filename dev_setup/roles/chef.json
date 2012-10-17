@@ -1,0 +1,10 @@
+{
+  "name": "chef",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install Chef using gem",
+  "chef_type": "role",
+  "run_list" : ["recipe[chef]"]
+}

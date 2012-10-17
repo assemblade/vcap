@@ -1,0 +1,38 @@
+#!/bin/sh
+
+
+node=$1
+environment=$2
+
+# Bootstrap Node
+knife bootstrap $node -x root -r "role[cfbasic]" -E $environment
+ssh root@$node "sync;sync;reboot"
+sleep 5;
+
+restarted="false"
+while [ $restarted = "false" ];
+do
+  echo Waiting to reboot...
+  ssh $node ls > /dev/null
+  rc=$?
+  if [ $rc -lt 1 ]
+  then
+    echo $node restarted
+    restarted="true"
+  else
+    sleep 5;
+  fi
+done
+
+knife node run_list add $node "role[chef]"
+ssh root@$node chef-client
+
+knife node run_list add $node "role[cfgems]"
+ssh root@$node chef-client
+
+knife node run_list add $node "role[cfessentials]"
+ssh root@$node chef-client
+
+knife node run_list add $node "role[router]"
+ssh root@$node chef-client
+

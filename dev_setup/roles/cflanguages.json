@@ -1,0 +1,14 @@
+{
+  "name": "cflanguages",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install CloudFoundry Basic Languages",
+  "chef_type": "role",
+  "run_list" : ["recipe[java7]",
+                "recipe[java]",
+                "recipe[node::node06]",
+                "recipe[git]",
+                "recipe[erlang]"]
+}

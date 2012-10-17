@@ -1,0 +1,10 @@
+{
+  "name": "cfgems",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install CloudFoundry Basic Gems",
+  "chef_type": "role",
+  "run_list" : ["recipe[blobstore_client]"]
+}

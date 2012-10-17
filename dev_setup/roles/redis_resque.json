@@ -1,0 +1,9 @@
+{
+  "name": "redis_resque",
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Redis key value store for cloud_controller",
+  "chef_type": "role",
+  "run_list" : ["recipe[redis]",
+                "recipe[redis::resque]"]
+}

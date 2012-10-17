@@ -1,0 +1,12 @@
+{
+  "name": "cfessentials",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install CloudFoundry essentials cookbook",
+  "chef_type": "role",
+  "run_list" : [
+                "recipe[essentials]"
+               ]
+}

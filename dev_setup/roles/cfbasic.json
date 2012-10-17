@@ -1,0 +1,14 @@
+{
+  "name": "cfbasic",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install CloudFoundry Basic elements",
+  "chef_type": "role",
+  "run_list" : ["recipe[build-essential]",
+                "recipe[git]",
+                "recipe[rvm::ruby_192]",
+                "recipe[cfusers]"
+                ]
+}
