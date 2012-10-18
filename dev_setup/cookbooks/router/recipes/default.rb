@@ -18,11 +18,18 @@ end
 
 cf_bundle_install(File.expand_path("router", node[:cloudfoundry][:home]))
 
+template "dea" do
+  path File.join("", "etc", "init.d", "router")
+  source "router.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+      
 service "router" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
-      
+
 template node[:router][:config_file] do
    path File.join(node[:deployment][:config_path], node[:router][:config_file])
    source "router.yml.erb"
