@@ -6,6 +6,5 @@
   "chef_type": "role",
   "run_list" : ["recipe[deployment]",
                 "recipe[essentials]",
-                "recipe[mongodb]",
-                "recipe[mongodb::node]"]
+                "recipe[chef-mongodb::mongodb]"]
 }
