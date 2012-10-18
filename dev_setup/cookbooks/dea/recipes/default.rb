@@ -46,6 +46,12 @@ end
 
 cf_bundle_install(File.join(node[:cloudfoundry][:home], "dea"))
 
+  
+service "dea" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
+  
 template node[:dea][:config_file] do
    path File.join(node[:deployment][:config_path], node[:dea][:config_file])
    source "dea.yml.erb"

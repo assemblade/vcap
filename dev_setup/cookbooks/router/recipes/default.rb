@@ -18,6 +18,10 @@ end
 
 cf_bundle_install(File.expand_path("router", node[:cloudfoundry][:home]))
 
+service "router" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
       
 template node[:router][:config_file] do
    path File.join(node[:deployment][:config_path], node[:router][:config_file])
