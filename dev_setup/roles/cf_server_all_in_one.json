@@ -14,7 +14,5 @@
                  "recipe[redis]",
                  "recipe[health_manager]",
                  "recipe[nats_server]",
-                 "recipe[stager]",
-                 "recipe[cloud_controller]",
-                 "recipe[imagemagick]"]
+                 "recipe[cloud_controller]"]
 }
