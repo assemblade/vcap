@@ -9,6 +9,6 @@
   "run_list" : ["recipe[build-essential]",
                 "recipe[git]",
                 "recipe[nginx]",
-                "recipe[nginx::http_ssl_module]",
+                "recipe[nginx::http_ssl_module]"
                 ]
 }
