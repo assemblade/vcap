@@ -11,17 +11,27 @@ template node[:health_manager][:config_file] do
   mode 0644
 end
 
+template "cloud_controller" do
+  path File.join("", "etc", "init.d", "cloud_controler")
+  source "cloud_controller.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
 
 
-
-  bash "git clone router" do
-    code <<-EOH
-      if [ ! -e #{node[:cloudfoundry][:home]}/health_manager ]
-      then
-        cd #{node[:cloudfoundry][:home]}
-        git clone https://github.com/cloudfoundry/health_manager.git
-      fi
-    EOH
-  end
+bash "git clone router" do
+  code <<-EOH
+    if [ ! -e #{node[:cloudfoundry][:home]}/health_manager ]
+    then
+      cd #{node[:cloudfoundry][:home]}
+      git clone https://github.com/cloudfoundry/health_manager.git
+    fi
+  EOH
+end
 
 cf_bundle_install(File.expand_path("health_manager", node[:cloudfoundry][:home]))
+
+service "cloud_controller" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
