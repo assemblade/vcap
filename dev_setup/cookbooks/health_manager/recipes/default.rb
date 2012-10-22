@@ -11,9 +11,9 @@ template node[:health_manager][:config_file] do
   mode 0644
 end
 
-template "cloud_controller" do
-  path File.join("", "etc", "init.d", "cloud_controler")
-  source "cloud_controller.erb"
+template "health_manager" do
+  path File.join("", "etc", "init.d", "health_manager")
+  source "health_manager.erb"
   owner node[:deployment][:user]
   mode 0755
 end
@@ -31,7 +31,7 @@ end
 
 cf_bundle_install(File.expand_path("health_manager", node[:cloudfoundry][:home]))
 
-service "cloud_controller" do
+service "health_manager" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
