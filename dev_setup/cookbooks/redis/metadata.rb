@@ -7,3 +7,4 @@ version          "1.0.0"
 
 depends "backup"
 depends "service_lifecycle"
+depends "deployment"
