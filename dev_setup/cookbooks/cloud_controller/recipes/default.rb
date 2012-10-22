@@ -21,7 +21,7 @@
 #end
 
 template "cloud_controller" do
-  path File.join("", "etc", "init.d", "cloud_controler")
+  path File.join("", "etc", "init.d", "cloud_controller")
   source "cloud_controller.erb"
   owner node[:deployment][:user]
   mode 0755
