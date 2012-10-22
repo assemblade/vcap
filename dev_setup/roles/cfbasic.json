@@ -8,7 +8,6 @@
   "chef_type": "role",
   "run_list" : ["recipe[build-essential]",
                 "recipe[git]",
-                "recipe[rvm::ruby_192]",
                 "recipe[cfusers]"
                 ]
 }
