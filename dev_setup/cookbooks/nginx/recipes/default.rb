@@ -112,9 +112,12 @@ when "ubuntu"
     cwd File.join("", "tmp")
     user node[:deployment][:user]
     code <<-EOH
-      tar xzf #{lua_tarball}
-      cd lua-#{lua_version}
-      make linux install INSTALL_TOP=#{lua_path}
+      if [ ! -d #{lua_tarball} ]
+      then
+        tar xzf #{lua_tarball}
+        cd lua-#{lua_version}
+        make linux install INSTALL_TOP=#{lua_path}
+      fi
     EOH
   end
 
@@ -122,12 +125,15 @@ when "ubuntu"
     cwd File.join("", "tmp")
     user node[:deployment][:user]
     code <<-EOH
-      tar xzf #{lua_cjson_tarball}
-      cd lua-cjson-1.0.3
-      sed 's!^PREFIX ?=.*!PREFIX ?='#{lua_path}'!' Makefile > tmp
-      mv tmp Makefile
-      make
-      make install
+      if [ ! -d  lua-cjson-1.0.3 ]
+      then
+        tar xzf #{lua_cjson_tarball}
+        cd lua-cjson-1.0.3
+        sed 's!^PREFIX ?=.*!PREFIX ?='#{lua_path}'!' Makefile > tmp
+        mv tmp Makefile
+        make
+        make install
+      fi
     EOH
   end
 
@@ -135,6 +141,8 @@ when "ubuntu"
     cwd File.join("", "tmp")
     user node[:deployment][:user]
     code <<-EOH
+      if [ ! -d nginx-#{nginx_version} ]
+      then
       tar xzf #{nginx_tarball}
       tar xzf #{pcre_tarball}
       tar xzf #{nginx_upload_module_tarball}
@@ -153,7 +161,6 @@ when "ubuntu"
         --add-module=../headers-more-v0.15rc1 \
         --add-module=../simpl-ngx_devel_kit-bc97eea \
         --add-module=../chaoslawful-lua-nginx-module-4d92cb1
-
       make
       make install
     EOH
