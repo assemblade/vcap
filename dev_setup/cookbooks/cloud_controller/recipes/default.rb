@@ -20,7 +20,12 @@
 #  EOH
 #end
 
-
+template "dea" do
+  path File.join("", "etc", "init.d", "dea")
+  source "dea.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
 
 template node[:cloud_controller][:config_file] do
   path File.join(node[:deployment][:config_path], node[:cloud_controller][:config_file])
@@ -120,4 +125,10 @@ node[:cloud_controller][:staging].each_pair do |framework, config|
     owner node[:deployment][:user]
     mode 0644
   end
+end
+
+
+service "cloud_controller" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
 end
