@@ -7,6 +7,7 @@ include_attribute "python"
 include_attribute "erlang"
 include_attribute "java7"
 include_attribute "node::node04"
+include_attribute "redis"
 
 
 default[:deployment][:welcome] = "VMware's Cloud Application Platform"
