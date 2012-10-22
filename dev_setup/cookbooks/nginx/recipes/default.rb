@@ -143,26 +143,27 @@ when "ubuntu"
     code <<-EOH
       if [ ! -d nginx-#{nginx_version} ]
       then
-      tar xzf #{nginx_tarball}
-      tar xzf #{pcre_tarball}
-      tar xzf #{nginx_upload_module_tarball}
-      tar xzf #{headers_more_tarball}
-      tar xzf #{devel_kit_tarball}
-      tar xzf #{nginx_lua_tarball}
-
-      cd nginx-#{nginx_version}
-      patch -p0 < #{nginx_patch}
-
-      LUA_LIB=#{lua_path}/lib LUA_INC=#{lua_path}/include ./configure \
-        --prefix=#{nginx_path} \
-        --with-pcre=../pcre-8.12 \
-        --with-cc-opt=-Wno-unused-but-set-variable \
-        --add-module=../nginx_upload_module-2.2.0 \
-        --add-module=../headers-more-v0.15rc1 \
-        --add-module=../simpl-ngx_devel_kit-bc97eea \
-        --add-module=../chaoslawful-lua-nginx-module-4d92cb1
-      make
-      make install
+        tar xzf #{nginx_tarball}
+        tar xzf #{pcre_tarball}
+        tar xzf #{nginx_upload_module_tarball}
+        tar xzf #{headers_more_tarball}
+        tar xzf #{devel_kit_tarball}
+        tar xzf #{nginx_lua_tarball}
+  
+        cd nginx-#{nginx_version}
+        patch -p0 < #{nginx_patch}
+  
+        LUA_LIB=#{lua_path}/lib LUA_INC=#{lua_path}/include ./configure \
+          --prefix=#{nginx_path} \
+          --with-pcre=../pcre-8.12 \
+          --with-cc-opt=-Wno-unused-but-set-variable \
+          --add-module=../nginx_upload_module-2.2.0 \
+          --add-module=../headers-more-v0.15rc1 \
+          --add-module=../simpl-ngx_devel_kit-bc97eea \
+          --add-module=../chaoslawful-lua-nginx-module-4d92cb1
+        make
+        make install
+      fi
     EOH
   end
 
