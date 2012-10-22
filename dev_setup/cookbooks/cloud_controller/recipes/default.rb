@@ -20,9 +20,9 @@
 #  EOH
 #end
 
-template "dea" do
-  path File.join("", "etc", "init.d", "dea")
-  source "dea.erb"
+template "cloud_controller" do
+  path File.join("", "etc", "init.d", "cloud_controler")
+  source "cloud_controller.erb"
   owner node[:deployment][:user]
   mode 0755
 end
