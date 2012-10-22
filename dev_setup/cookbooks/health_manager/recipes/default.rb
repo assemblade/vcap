@@ -19,7 +19,7 @@ template "health_manager" do
 end
 
 
-bash "git clone router" do
+bash "git clone health_manager" do
   code <<-EOH
     if [ ! -e #{node[:cloudfoundry][:home]}/health_manager ]
     then
