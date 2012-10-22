@@ -7,6 +7,5 @@
   "chef_type": "role",
   "run_list" : [ "recipe[deployment]",
                  "recipe[essentials]",
-                 "recipe[nginx]",
                  "recipe[cloud_controller]"]
 }
