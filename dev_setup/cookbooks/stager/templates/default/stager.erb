@@ -1,0 +1,98 @@
+#!/bin/bash
+#
+# stager      This shell script takes care of starting and stopping stager
+#
+# chkconfig: - 80 20
+#
+### BEGIN INIT INFO
+# Provides: stager
+# Default-Start:
+# Default-Stop:
+# Description: stager
+# Short-Description: start and stop stager
+### END INIT INFO
+#
+
+. /etc/profile
+
+pid_of_service() {
+    ps auxwww | egrep "ruby.*stager" | grep -v grep | awk '{print $2}'
+}
+
+shutdown() {
+	pid=`pid_of_service`
+			
+	if [ -n "$pid" ]; then
+		kill -$1 $pid
+		echo "We are going to sleep $2 secs to allow the health manager to move the apps to another server if necessary...."
+		sleep $2
+		LOOPCOUNT="0"
+		MAXTRIES=30
+		while [ "$pid" != "" ] ; do
+        	sleep 5
+       		echo "Checking PID $pid - $LOOPCOUNT/$MAXTRIES"
+       		pid=`pid_of_service`
+       		LOOPCOUNT=`expr $LOOPCOUNT + 1`
+        	if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
+				FORCEKILL="yes"
+				break
+			fi
+		done
+		if [ "$FORCEKILL" == "yes" ] ; then
+			echo "Force killing pid $pid"
+			kill -9 "$pid"
+		fi
+	else
+		echo "stager is not running"
+	fi
+	
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %> ] ; then
+        	# stager runs as root
+        	echo "Starting stager..."
+        	cd  <%= File.join(node[:cloudfoundry][:home], "stager", "bin") %>
+			nohup /usr/bin/ruby ./stager -c <%= File.join(node[:deployment][:config_path]) %>/stager.yml  >> /var/log/stager.log 2>&1 &
+			
+#			RC=1;
+#			MAXTRIES=10
+#			LOOPCOUNT="0"
+#			while [ "${RC}" -ne "0" ] ; do
+#   			sleep 2;
+#   			echo "Trying WGET $LOOPCOUNT/$MAXTRIES"
+#    			wget -O - http://`hostname`:34501/healthz 2>&1
+#    			RC=$?
+#    			LOOPCOUNT=`expr $LOOPCOUNT + 1`
+#    			if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
+#        			break
+#    			fi
+#			done
+#			exit $RC			
+			 
+		fi
+        ;;
+    stop)
+    	if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %>  ] ; then
+			shutdown "USR2" 60;
+		fi
+        ;;
+    stop-graceful)
+		if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %>  ] ; then
+			shutdown "USR1" 0;
+		fi
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+	graceful)
+        $0 stop-graceful
+        $0 start
+        ;;		
+    *)
+        echo "Usage: $0 {start|stop|stop-graceful|restart|graceful}"
+        exit 1
+esac
