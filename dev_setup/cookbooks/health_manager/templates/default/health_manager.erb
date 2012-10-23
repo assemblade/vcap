@@ -55,7 +55,7 @@ case "$1" in
         	# health_manager runs as root
         	echo "Starting health_manager..."
         	cd  <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin") %>
-			nohup bundle exec ./health_manager -c <%= File.join(node[:deployment][:config_path]) %>/health_manager.yml  >> /var/log/health_manager.log 2>&1 &
+			nohup /usr/bin/ruby ./health_manager -c <%= File.join(node[:deployment][:config_path]) %>/health_manager.yml  >> /var/log/health_manager.log 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
