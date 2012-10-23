@@ -18,7 +18,7 @@ end
 
 cf_bundle_install(File.expand_path("router", node[:cloudfoundry][:home]))
 
-template "dea" do
+template "router" do
   path File.join("", "etc", "init.d", "router")
   source "router.erb"
   owner node[:deployment][:user]
