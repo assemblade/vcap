@@ -12,6 +12,9 @@ logging:
 pid: /var/vcap/sys/run/healthmanager.pid
 rails_environment: production
 
+bulk_api:
+  host: <%= node[:health_manager][:bulk_api_host] =%>
+
 # This database is shared with the cloud controller.
 database_environment: # replaces database.yml
   production:
