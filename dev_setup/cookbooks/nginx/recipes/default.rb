@@ -222,7 +222,21 @@ when "ubuntu"
     owner node[:deployment][:user]
     mode 0755
   end
+  
+  template "nginx_public.conf" do
+    path File.join(nginx_path, "conf", "nginx_public.conf")
+    source "public-nginx.conf.erb"
+    owner node[:deployment][:user]
+    mode 0644
+  end
 
+  template "nginx_public" do
+    path File.join("", "etc", "init.d", "nginx_public")
+    source "public-nginx.erb"
+    owner node[:deployment][:user]
+    mode 0755
+  end
+        
   template "nginx_sds.conf" do
     path File.join(nginx_path, "conf", "nginx_sds.conf")
     source "sds-nginx.conf.erb"
@@ -254,6 +268,11 @@ when "ubuntu"
     action [ :enable, :restart ]
   end
 
+  service "nginx_public" do
+    supports :status => true, :restart => true, :reload => true
+    action [ :enable, :restart ]
+  end
+  
   service "nginx_sds" do
     supports :status => true, :restart => true, :reload => true
     action [ :enable, :restart ]
