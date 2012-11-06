@@ -45,7 +45,7 @@ http {
       
       access_log <%= node[:nginx][:log_home] %>/nginx_public_access.log  main;
       proxy_buffering             off;
-      proxy_set_header            Host $host;
+      proxy_set_header            Host $cfhost;
       proxy_set_header            X-Real_IP $remote_addr;
       proxy_set_header            X-Forwarded_For $proxy_add_x_forwarded_for;
       proxy_redirect              off;
