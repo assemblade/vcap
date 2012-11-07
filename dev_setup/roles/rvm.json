@@ -6,5 +6,5 @@
   "json_class": "Chef::Role",
   "description": "Install RVM",
   "chef_type": "role",
-  "run_list" : ["recipe[rvm]"]
+  "run_list" : ["recipe[rvm::ruby_193]"]
 }
