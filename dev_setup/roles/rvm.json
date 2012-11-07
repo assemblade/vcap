@@ -1,0 +1,10 @@
+{
+  "name": "rvm",
+  "default_attributes": {
+  },
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "Install RVM",
+  "chef_type": "role",
+  "run_list" : ["recipe[rvm]"]
+}
