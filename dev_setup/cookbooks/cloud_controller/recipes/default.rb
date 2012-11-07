@@ -63,7 +63,7 @@ bash "git clone cloud_controller" do
     if [ ! -e #{node[:cloudfoundry][:home]}/cloud_controller ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone https://github.com/cloudfoundry/cloud_controller.git
+      git clone #{node[:cloud_controller][:git_url]}
     fi
   EOH
 end
