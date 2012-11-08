@@ -1,0 +1,100 @@
+#!/bin/bash
+#
+# uaa      This shell script takes care of starting and stopping uaa
+#
+# chkconfig: - 80 20
+#
+### BEGIN INIT INFO
+# Provides: uaa
+# Default-Start:
+# Default-Stop:
+# Description: uaa
+# Short-Description: start and stop uaa
+### END INIT INFO
+#
+
+. /etc/profile
+
+pid_of_service() {
+    ps auxwww | egrep "java.*uaa" | grep -v grep | awk '{print $2}'
+}
+
+shutdown() {
+	pid=`pid_of_service`
+			
+	if [ -n "$pid" ]; then
+		kill -$1 $pid
+		echo "We are going to sleep $2 secs to allow the health manager to move the apps to another server if necessary...."
+		sleep $2
+		LOOPCOUNT="0"
+		MAXTRIES=30
+		while [ "$pid" != "" ] ; do
+        	sleep 5
+       		echo "Checking PID $pid - $LOOPCOUNT/$MAXTRIES"
+       		pid=`pid_of_service`
+       		LOOPCOUNT=`expr $LOOPCOUNT + 1`
+        	if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
+				FORCEKILL="yes"
+				break
+			fi
+		done
+		if [ "$FORCEKILL" == "yes" ] ; then
+			echo "Force killing pid $pid"
+			kill -9 "$pid"
+		fi
+	else
+		echo "uaa is not running"
+	fi
+	
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        if [ -f <%= File.join(node[:cloudfoundry][:home], "uaa", "bin", "uaa") %> ] ; then
+        	# uaa runs as root
+        	echo "Starting uaa..."
+        	cd  <%= File.join(node[:cloudfoundry][:home], "uaa", "bin") %>
+        	export M2_HOME=<%= File.join(node[:maven][:path]) %>
+        	export PATH=$M2_HOME/bin:$PATH
+			nohup /usr/bin/ruby ./uaa -c <%= File.join(node[:deployment][:config_path]) %>/uaa.yml  >> /var/log/uaa.log 2>&1 &
+			
+#			RC=1;
+#			MAXTRIES=10
+#			LOOPCOUNT="0"
+#			while [ "${RC}" -ne "0" ] ; do
+#   			sleep 2;
+#   			echo "Trying WGET $LOOPCOUNT/$MAXTRIES"
+#    			wget -O - http://`hostname`:34501/healthz 2>&1
+#    			RC=$?
+#    			LOOPCOUNT=`expr $LOOPCOUNT + 1`
+#    			if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
+#        			break
+#    			fi
+#			done
+#			exit $RC			
+			 
+		fi
+        ;;
+    stop)
+    	if [ -f <%= File.join(node[:cloudfoundry][:home], "uaa", "uaa", "bin", "uaa") %> ] ; then
+			shutdown "USR2" 1;
+		fi
+        ;;
+    stop-graceful)
+		if [ -f <%= File.join(node[:cloudfoundry][:home], "uaa", "uaa", "bin", "uaa") %> ] ; then
+			shutdown "USR1" 0;
+		fi
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+	graceful)
+        $0 stop-graceful
+        $0 start
+        ;;		
+    *)
+        echo "Usage: $0 {start|stop|stop-graceful|restart|graceful}"
+        exit 1
+esac

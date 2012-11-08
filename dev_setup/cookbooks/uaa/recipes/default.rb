@@ -10,6 +10,14 @@
 cf_pg_reset_user_password(:uaadb)
 cf_pg_reset_user_password(:ccdb)
 
+
+template "uaa" do
+  path File.join("", "etc", "init.d", "uaa")
+  source "uaa.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
 template "uaa.yml" do
   path File.join(node[:deployment][:config_path], "uaa.yml")
   source "uaa.yml.erb"
@@ -48,3 +56,9 @@ bash "Build and Deploy UAA" do
 end
 
 cf_bundle_install(File.expand_path("uaa", node["cloudfoundry"]["path"]))
+
+  
+service "uaa" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
