@@ -1,9 +1,9 @@
 {
-  "name": "dea",
+  "name": "cassandra_node",
   "default_attributes": {},
   "override_attributes": {},
   "json_class": "Chef::Role",
-  "description": "Cloudfoundry DEA",
+  "description": "Cassandra Node",
   "chef_type": "role",
   "run_list" : ["recipe[deployment]",
                 "recipe[essentials]",
