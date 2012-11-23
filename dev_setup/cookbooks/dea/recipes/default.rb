@@ -39,7 +39,7 @@ bash "git clone dea" do
     if [ ! -e #{node[:cloudfoundry][:home]}/dea ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone https://github.com/cloudfoundry/dea.git
+      git clone https://github.com/hayatoshimizuBSKYB/dea.git
     fi
   EOH
 end
