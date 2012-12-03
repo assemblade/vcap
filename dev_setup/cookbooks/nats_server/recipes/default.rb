@@ -5,6 +5,8 @@
 # Copyright 2011, VMware
 #
 
+include_recipe "nats_server::cloud"
+
 gem_package "nats" do
   gem_binary File.join(node[:ruby][:path], "bin", "gem")
   version "0.4.26"
