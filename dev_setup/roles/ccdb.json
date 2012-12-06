@@ -8,7 +8,9 @@
   "json_class": "Chef::Role",
   "description": "Cloud Controller Database for apps",
   "chef_type": "role",
-  "run_list" : ["recipe[deployment]",
+  "run_list" : [
+  				"recipe[essentials]",
+  				"recipe[deployment]",
                 "recipe[postgresql]",
                 "recipe[postgresql::system]",
                 "recipe[ccdb]"]
