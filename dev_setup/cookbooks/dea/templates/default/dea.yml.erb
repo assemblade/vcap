@@ -1,6 +1,6 @@
 ---
 # Base directory where all applications are staged and hosted
-base_dir: /var/vcap.local/dea
+base_dir: <%= node[:dea][:base_dir] %>
 
 # Local_route is the IP address of a well known server on your network, it
 # is used to choose the right ip address (think of hosts that have multiple nics
