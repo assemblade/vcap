@@ -6,7 +6,7 @@
   "description": "Cloudfoundry DEA",
   "chef_type": "role",
   "run_list" : [
-                "recipe[build-essentials]",
+                "recipe[build-essential]",
                 "recipe[deployment]",
                 "recipe[essentials]",
                 "recipe[java::openjdk]",
