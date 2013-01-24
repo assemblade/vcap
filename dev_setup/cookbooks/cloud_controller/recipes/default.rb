@@ -69,7 +69,7 @@ bash "git clone cloud_controller" do
 end
 
 
-cf_bundle_install(File.expand_path(File.join("cloud_controller", "cloud_controller"), node[:cloudfoundry][:home]))
+cf_bundle_install(File.expand_path(File.join("cloud_controller", "cloud_controller"), node[:cloudfoundry][:path]))
 
 cf_pg_reset_user_password(:ccdb)
 
@@ -89,32 +89,11 @@ bash "Initialise databse" do
   EOH
 end
 
-
-
 directory "#{node[:cloudfoundry][:path]}/log" do
   owner "root"
   group "root"
   mode "0755"
   action :create
-end
-
-template "vcap_redis.conf" do
-  path File.join(node[:deployment][:config_path], "vcap_redis.conf")
-  source "vcap_redis.conf.erb"
-  owner node[:deployment][:user]
-  mode 0644
-end
-
-template "vcap_redis" do
-  path File.join("", "etc", "init.d", "vcap_redis")
-  source "vcap_redis.erb"
-  owner node[:deployment][:user]
-  mode 0755
-end
-
-service "vcap_redis" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :restart ]
 end
 
 staging_dir = File.join(node[:deployment][:config_path], "staging")

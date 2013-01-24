@@ -9,8 +9,8 @@
   "description": "Cloud Controller Database for apps",
   "chef_type": "role",
   "run_list" : [
-  				"recipe[essentials]",
   				"recipe[deployment]",
+                "recipe[essentials]",
                 "recipe[postgresql]",
                 "recipe[postgresql::system]",
                 "recipe[ccdb]"]

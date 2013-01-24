@@ -33,7 +33,7 @@ bash "git clone stager" do
 end
 
 
-cf_bundle_install(File.expand_path("stager", node[:cloudfoundry][:home]))
+cf_bundle_install(File.expand_path("stager", node[:cloudfoundry][:path]))
 
 service "stager" do
   supports :status => true, :restart => true, :reload => true

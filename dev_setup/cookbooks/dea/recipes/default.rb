@@ -11,6 +11,8 @@ end
 
 node[:dea][:runtimes].each do |runtime|
   case runtime
+  when "ruby193"
+    include_recipe "ruby::ruby193"
   when "node06"
     include_recipe "node::node06"
   when "node08"
@@ -44,7 +46,7 @@ bash "git clone dea" do
   EOH
 end
 
-cf_bundle_install(File.join(node[:cloudfoundry][:home], "dea"))
+cf_bundle_install(File.join(node[:cloudfoundry][:path], "dea"))
 
   
 service "dea" do
