@@ -5,8 +5,11 @@
   "json_class": "Chef::Role",
   "description": "Cloudfoundry DEA",
   "chef_type": "role",
-  "run_list" : ["recipe[deployment]",
+  "run_list" : [
+                "recipe[build-essentials]",
+                "recipe[deployment]",
                 "recipe[essentials]",
+                "recipe[java::openjdk]",
                 "recipe[dea]",
                 "recipe[imagemagick]"]
 }
