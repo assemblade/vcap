@@ -24,7 +24,7 @@ bash "git clone health_manager" do
     if [ ! -e #{node[:cloudfoundry][:home]}/health_manager ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone https://github.com/hayatoshimizuBSKYB/health_manager.git
+      git clone #{node[:health_manager][:github_url]}
     fi
   EOH
 end
