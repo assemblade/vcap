@@ -16,9 +16,6 @@ bash "git clone router" do
   EOH
 end
 
-<<<<<<< HEAD
-cf_bundle_install(File.expand_path("router", node[:cloudfoundry][:home]))
-
 template "router" do
   path File.join("", "etc", "init.d", "router")
   source "router.erb"
@@ -39,6 +36,4 @@ template node[:router][:config_file] do
   notifies :restart, "service[router]"
 end
 
-=======
 cf_bundle_install(File.expand_path("router", node[:cloudfoundry][:path]))
->>>>>>> c836723d9dd16d61929b7603f5b924a6d98af021
