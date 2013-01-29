@@ -7,8 +7,5 @@
   "chef_type": "role",
   "run_list" : [ "recipe[deployment]",
                  "recipe[essentials]",
-                 "recipe[nginx]",
-                 "recipe[vcap_redis]",
-                 "recipe[ccdb]",
                  "recipe[cloud_controller]"]
 }
