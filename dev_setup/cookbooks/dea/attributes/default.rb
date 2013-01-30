@@ -5,5 +5,4 @@ default[:dea][:logging] = 'debug'
 default[:dea][:secure] = false
 default[:dea][:multi_tenant] = true
 default[:dea][:enforce_ulimit] = false
-default[:dea][:base_dir] = /var/vcap.local/dea
-  
+default[:dea][:base_dir] = "/var/vcap.local/dea"
