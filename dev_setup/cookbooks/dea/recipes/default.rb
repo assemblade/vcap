@@ -11,6 +11,10 @@ end
 
 node[:dea][:runtimes].each do |runtime|
   case runtime
+  when "ruby19"
+    include_recipe "ruby"
+  when "ruby18"
+    include_recipe "ruby::ruby18"
   when "ruby193"
     include_recipe "ruby::ruby193"
   when "node06"
