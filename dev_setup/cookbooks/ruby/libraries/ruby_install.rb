@@ -1,6 +1,8 @@
 module RubyInstall
   def cf_ruby_install(ruby_version, ruby_source_id, ruby_path, ruby_tarball_suffix)
 
+    Chef::Log.info "Installing ruby version: #{ruby_version}"
+    
     %w[ build-essential libssl-dev zlib1g-dev libreadline6-dev libxml2-dev].each do |pkg|
       package pkg
     end
