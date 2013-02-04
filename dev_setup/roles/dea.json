@@ -10,8 +10,6 @@
                 "recipe[deployment]",
                 "recipe[essentials]",
                 "recipe[java::openjdk]",
-                "recipe[node::node04]",
-                "recipe[node::node06]",
                 "recipe[node::node08]",
                 "recipe[dea]",
                 "recipe[imagemagick]"]

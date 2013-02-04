@@ -5,10 +5,11 @@ module NodeInstall
     end
 
     tarball_path = File.join(node[:deployment][:setup_cache], "node-v#{node_version}.tar.gz")
-    cf_remote_file tarball_path do
-      owner node[:deployment][:user]
-      id node_source_id
-      checksum node[:node][:checksums][node_version]
+    
+    remote_file tarball_path do
+      source "http://nodejs.org/dist/v#{node_version}/node-v#{node_version}-linux-x64.tar.gz"
+      mode 00644
+      checksum node[:node][:checksums][node_version] # A SHA256 (or portion thereof) of the file.
     end
 
     directory node_path do
@@ -25,9 +26,6 @@ module NodeInstall
       code <<-EOH
       tar xzf #{tarball_path}
       cd node-v#{node_version}
-      ./configure --prefix=#{node_path}
-      make
-      make install
       EOH
     end
 
