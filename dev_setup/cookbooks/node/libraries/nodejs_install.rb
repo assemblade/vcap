@@ -12,6 +12,7 @@ module NodeInstall
       checksum node[:node][:checksums][node_version] # A SHA256 (or portion thereof) of the file.
     end
 
+    node_path = "#{node[:deployment][:path]}/nodes"
     Chef::Log.info("Node install path: #{node_path}")
 
     directory node_path do
