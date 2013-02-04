@@ -21,7 +21,7 @@ module NodeInstall
     end
 
     bash "Install Node.js version " + node_version do
-      cwd File.join("", "tmp")
+      cwd node_path
       user node[:deployment][:user]
       code <<-EOH
       tar xzf #{tarball_path}
