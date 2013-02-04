@@ -28,7 +28,7 @@ module NodeInstall
       user node[:deployment][:user]
       code <<-EOH
       tar xzf #{tarball_path}
-      cd node-v#{node_version}
+      cd node-v#{node_version}-linux-x64
       EOH
     end
 
