@@ -98,9 +98,9 @@ node06:
   series: node06
   category: node
 node08:
-  version: "0.8.2"
+  version: "0.8.18"
   version_flag: '-v'
-  version_output: 0.8.2
+  version_output: 0.8.18
   description: 'Node.js'
   executable: <%= File.join(node[:node08][:path], "bin", "node") %>
   npm: <%= File.join(node[:node08][:path], "bin", "npm") %>
@@ -159,12 +159,12 @@ ruby18:
 ruby19:
   version: "1.9.2p180"
   description: "Ruby 1.9.2"
-  executable: "<%= File.join(node[:ruby][:path], "bin", "ruby") %>"
+  executable: "<%= File.join(node[:ruby192][:path], "bin", "ruby") %>"
   version_flag: "-e 'puts RUBY_VERSION'"
   additional_checks: "-e 'puts RUBY_PATCHLEVEL == 180'"
   version_output: 1.9.2
   environment:
-    PATH: <%= File.join(node[:ruby][:path], "bin") %>:<%= File.join(node[:node08][:path], "bin") %>:$PATH
+    PATH: <%= File.join(node[:ruby192][:path], "bin") %>:<%= File.join(node[:node08][:path], "bin") %>:$PATH
     BUNDLE_GEMFILE:
   status:
     name: current
