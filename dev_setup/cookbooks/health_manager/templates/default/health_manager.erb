@@ -76,7 +76,7 @@ case "$1" in
         ;;
     stop)
     	if [ -f <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin", "health_manager") %> ] ; then
-			shutdown "USR2" 60;
+			shutdown "USR2" 3;
 		fi
         ;;
     stop-graceful)
