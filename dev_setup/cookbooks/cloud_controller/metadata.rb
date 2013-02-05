@@ -5,6 +5,7 @@ description      "Installs/Configures Cloud Controller"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
+depends          "cloudfoundry"
 depends          "service_lifecycle"
 depends          "deployment"
 depends          "uaa"

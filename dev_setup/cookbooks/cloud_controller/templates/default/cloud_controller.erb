@@ -76,7 +76,7 @@ case "$1" in
         ;;
     stop)
     	if [ -f <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin", "cloud_controller") %> ] ; then
-			shutdown "USR2" 60;
+			shutdown "USR2" 5;
 		fi
         ;;
     stop-graceful)
