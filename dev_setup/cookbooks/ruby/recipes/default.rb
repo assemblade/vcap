@@ -4,4 +4,4 @@ cf_ruby_install(node[:ruby192][:version], node[:ruby192][:id], node[:ruby192][:p
 cf_rubygems_install(node[:ruby192][:path], node[:rubygems][:version], node[:rubygems][:id], node[:rubygems][:checksum])
 cf_gem_install(node[:ruby192][:path], "bundler", node[:ruby][:bundler][:version])
 
-%w[ rack eventmachine thin sinatra mysql pg vmc ].each {|gem| cf_gem_install(node[:ruby][:path], gem)}
+%w[ rack eventmachine thin sinatra mysql pg vmc ].each {|gem| cf_gem_install(node[:ruby192][:path], gem)}

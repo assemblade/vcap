@@ -39,6 +39,7 @@ service "stager" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
+
   
 template node[:stager][:config_file] do
   path File.join(node[:deployment][:config_path], node[:stager][:config_file])

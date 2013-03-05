@@ -1,6 +1,7 @@
 include_attribute "deployment"
 include_attribute "postgresql"
 include_attribute "redis"
+include_attribute "redis"
 include_attribute "uaa"
 include_attribute "service_lifecycle"
 include_attribute "service_broker"
