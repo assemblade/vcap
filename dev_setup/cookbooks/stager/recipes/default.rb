@@ -22,6 +22,13 @@ template "stager" do
   mode 0755
 end
 
+template "logrotate" do
+  path File.join("", "etc", "logrotate.d", "stager")
+  source "logrotate.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
 bash "git clone stager" do
   code <<-EOH
     if [ ! -e #{node[:cloudfoundry][:home]}/stager ]

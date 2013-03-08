@@ -57,6 +57,13 @@ template node[:cloud_controller][:runtimes_file] do
    mode 0644
 end
 
+template "logrotate" do
+  path File.join("", "etc", "logrotate.d", "cloud_controller")
+  source "logrotate.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
 
 bash "git clone cloud_controller" do
   code <<-EOH

@@ -22,6 +22,13 @@ template "router" do
   owner node[:deployment][:user]
   mode 0755
 end
+
+template "logrotate" do
+  path File.join("", "etc", "logrotate.d", "router")
+  source "logrotate.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
       
 service "router" do
   supports :status => true, :restart => true, :reload => true

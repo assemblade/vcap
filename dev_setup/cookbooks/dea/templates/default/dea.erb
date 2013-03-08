@@ -55,7 +55,7 @@ case "$1" in
         	# Dea runs as root
         	echo "Starting dea..."
         	cd  <%= File.join(node[:cloudfoundry][:home], "dea", "bin") %>
-			nohup /usr/bin/ruby ./dea -c <%= File.join(node[:deployment][:config_path]) %>/dea.yml  >> /var/log/dea.log 2>&1 &
+			nohup /usr/bin/ruby ./dea -c <%= File.join(node[:deployment][:config_path]) %>/dea.yml  >> <%= node[:dea][:logpath] %> 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10

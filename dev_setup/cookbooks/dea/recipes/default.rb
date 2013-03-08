@@ -39,6 +39,13 @@ template "dea" do
   mode 0755
 end
 
+template "logrotate" do
+  path File.join("", "etc", "logrotate.d", "dea")
+  source "logrotate.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
 
 bash "git clone dea" do
   code <<-EOH

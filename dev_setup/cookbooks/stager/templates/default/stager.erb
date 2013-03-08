@@ -55,7 +55,7 @@ case "$1" in
         	# stager runs as root
         	echo "Starting stager..."
         	cd  <%= File.join(node[:cloudfoundry][:home], "stager", "bin") %>
-			nohup /usr/bin/ruby ./stager -c <%= File.join(node[:deployment][:config_path]) %>/stager.yml  >> /var/log/stager.log 2>&1 &
+			nohup /usr/bin/ruby ./stager -c <%= File.join(node[:deployment][:config_path]) %>/stager.yml  >> <%= node[:stager][:logpath]  %> 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10

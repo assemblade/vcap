@@ -44,3 +44,7 @@ default[:cloud_controller][:builtin_services] = ["redis", "mongodb", "mysql", "n
 default[:capacity][:max_uris] = 4
 default[:capacity][:max_services] = 16
 default[:capacity][:max_apps] = 20
+
+# Logging
+default[:cloud_controller][:logpath] = "/var/log/cloudfoundry/cloud_controller.log"
+  

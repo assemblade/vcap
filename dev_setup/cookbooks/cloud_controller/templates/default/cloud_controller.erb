@@ -55,7 +55,7 @@ case "$1" in
         	# cloud_controller runs as root
         	echo "Starting cloud_controller..."
         	cd  <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin") %>
-			nohup /usr/bin/ruby ./cloud_controller -c <%= File.join(node[:deployment][:config_path]) %>/cloud_controller.yml  >> /var/log/cloud_controller.log 2>&1 &
+			nohup /usr/bin/ruby ./cloud_controller -c <%= File.join(node[:deployment][:config_path]) %>/cloud_controller.yml  >> <%= node[:cloud_controller][:logpath]  %> 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
