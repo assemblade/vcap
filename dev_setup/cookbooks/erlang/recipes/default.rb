@@ -4,7 +4,7 @@
 # Copyright 2012, VMware
 #
 
-%w[ build-essential libncurses5-dev openssl libssl-dev ].each do |pkg|
+%w[ build-essential libncurses5-dev openssl libssl-dev xsltproc fop ].each do |pkg|
   package pkg
 end
 

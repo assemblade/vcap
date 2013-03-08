@@ -164,11 +164,7 @@ ruby19:
   additional_checks: "-e 'puts RUBY_PATCHLEVEL == 180'"
   version_output: 1.9.2
   environment:
-<<<<<<< HEAD
     PATH: <%= File.join(node[:ruby192][:path], "bin") %>:<%= File.join(node[:node08][:path], "bin") %>:$PATH
-=======
-    PATH: <%= File.join(node[:ruby][:path], "bin") %>:<%= File.join(node[:node08][:path], "bin") %>:$PATH
->>>>>>> 695fd2fff754bc25e7b6b8fccc4e2dc6c4e97b3d
     BUNDLE_GEMFILE:
   status:
     name: current
