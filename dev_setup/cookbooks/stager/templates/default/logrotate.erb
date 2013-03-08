@@ -1,0 +1,8 @@
+<%= node[:stager][:logpath]  %> {
+        daily
+        rotate 14
+        compress
+        delaycompress
+        missingok
+        create 644 root root
+}
