@@ -9,7 +9,7 @@
                 "recipe[build-essential]",
                 "recipe[deployment]",
                 "recipe[essentials]",
-                "recipe[java::openjdk]",
+                "recipe[java::oracle]",
                 "recipe[node::node08]",
                 "recipe[dea]",
                 "recipe[imagemagick]"]
