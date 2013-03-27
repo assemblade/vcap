@@ -1,6 +1,6 @@
-include_attributes "uaadb"
-include_attributes "tomcat"
-include_attributes "maven"
+include_attribute "uaadb"
+include_attribute "tomcat"
+include_attribute "maven"
 
 default[:uaadb][:host] = "localhost"
 
