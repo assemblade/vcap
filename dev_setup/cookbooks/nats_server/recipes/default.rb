@@ -13,7 +13,7 @@ gem_package "nats" do
 end
 
 nats_config_dir = File.join(node[:deployment][:config_path], "nats_server")
-node[:nats_server][:config] = File.join(nats_config_dir, "nats_server.yml")
+node.set[:nats_server][:config] = File.join(nats_config_dir, "nats_server.yml")
 
 directory nats_config_dir do
   owner node[:deployment][:user]
