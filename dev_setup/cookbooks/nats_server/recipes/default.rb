@@ -23,6 +23,22 @@ directory nats_config_dir do
   notifies :restart, "service[nats_server]"
 end
 
+template "nats_server.yml" do
+  path node[:nats_server][:config]
+  source "nats_server.yml.erb"
+  owner node[:deployment][:user]
+  mode 0644
+  notifies :restart, "service[nats_server]"
+end
+
+template "nats_server" do
+  path File.join("", "etc", "init.d", "nats_server")
+  source "nats_server.erb"
+  owner node[:deployment][:user]
+  mode 0755
+end
+
+
 case node['platform']
 when "ubuntu"
   template "nats_server" do
@@ -41,10 +57,3 @@ else
   Chef::Log.error("Installation of nats_server not supported on this platform.")
 end
 
-template "nats_server.yml" do
-  path node[:nats_server][:config]
-  source "nats_server.yml.erb"
-  owner node[:deployment][:user]
-  mode 0644
-  notifies :restart, "service[nats_server]"
-end
