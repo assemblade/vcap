@@ -51,3 +51,8 @@ else
   Chef::Log.error("Installation of nats_server not supported on this platform.")
 end
 
+service "nats_server" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end
+
