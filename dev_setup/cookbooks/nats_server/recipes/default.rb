@@ -31,12 +31,6 @@ template "nats_server.yml" do
   notifies :restart, "service[nats_server]"
 end
 
-template "nats_server" do
-  path File.join("", "etc", "init.d", "nats_server")
-  source "nats_server.erb"
-  owner node[:deployment][:user]
-  mode 0755
-end
 
 
 case node['platform']
