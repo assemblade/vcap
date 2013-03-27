@@ -7,12 +7,12 @@
 ### END INIT INFO
 
 # Author: VMware
-PATH=<%= File.join(node[:ruby][:path], "bin") %>:<%= File.join(node[:ruby][:gempath], node[:ruby][:version], "bin") %>:/sbin:/usr/sbin:/bin:/usr/bin
+. <%= node[:ruby][:rvmpath]/environments/default %>
 
 DESC="nats-server"
 NAME=nats-server
 DAEMON_NAME=nats-server
-DAEMON=<%= File.join(node[:ruby][:gempath], node[:ruby][:version], "bin", "nats-server") %>
+DAEMON=nats-server
 DAEMON_ARGS="-d -c <%= node[:nats_server][:config] %>"
 
 PIDFILE=/var/run/nats_server.pid
