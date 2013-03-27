@@ -10,7 +10,7 @@ oj = JSON.parse(os)
 oj["network"]["interfaces"]["eth0"]["addresses"].each_key do |key|
   family = oj["network"]["interfaces"]["eth0"]["addresses"][key]["family"]
   if family.eql? "inet"
-    node[:nats_server][:public_address] = key
+    node.set[:nats_server][:public_address] = key
   end
 end
 
