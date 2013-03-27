@@ -20,7 +20,6 @@ directory nats_config_dir do
   mode "0755"
   recursive true
   action :create
-  notifies :restart, "service[nats_server]"
 end
 
 template "nats_server.yml" do
@@ -28,7 +27,6 @@ template "nats_server.yml" do
   source "nats_server.yml.erb"
   owner node[:deployment][:user]
   mode 0644
-  notifies :restart, "service[nats_server]"
 end
 
 
@@ -40,7 +38,6 @@ when "ubuntu"
     source "nats_server.erb"
     owner node[:deployment][:user]
     mode 0755
-    notifies :restart, "service[nats_server]"
   end
 
   service "nats_server" do
@@ -49,10 +46,5 @@ when "ubuntu"
   end
 else
   Chef::Log.error("Installation of nats_server not supported on this platform.")
-end
-
-service "nats_server" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
 end
 
