@@ -13,6 +13,14 @@ node[:redis_resque][:host] ||= cf_local_ip
 node[:vcap_redis][:host] ||= cf_local_ip
 node[:serialization_data_server][:host] ||= cf_local_ip
 
+user "#{node[:deployment][:user]}" do
+  comment "CF User"
+  home "/home/#{node[:deployment][:user]}"
+  shell "/bin/bash"
+  action :create
+end
+  
+  
 [
   node[:deployment][:home], File.join(node[:deployment][:home], "deploy"),
   node[:deployment][:log_path], File.join(node[:deployment][:home], "sys", "log"),
