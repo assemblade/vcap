@@ -17,10 +17,11 @@ node[:redis][:supported_versions].each do |version, install_version|
   install_path = File.join(node[:deployment][:home], "deploy", "redis", install_version)
   source_file_id, source_file_checksum = id_and_checksum_for_redis_version(install_version)
 
-  cf_remote_file File.join(node[:deployment][:setup_cache], "redis-#{install_version}.tar.gz") do
-    owner node[:deployment][:user]
-    id source_file_id
-    checksum source_file_checksum
+  
+  remote_file "#{node[:deployment][:setup_cache]}" do
+    source "#{node[:redis][:download_url]}/redis-#{install_version}.tar.gz"
+    mode "0644"
+    checksum "#{node[:redis][:checksum]}"
   end
 
   directory install_path do

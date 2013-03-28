@@ -6,7 +6,7 @@ include_attribute "service_lifecycle"
 default[:redis][:supported_versions] = {
         "2.2" => "2.2.15",
         "2.4" => "2.4.17",
-        "2.6" => "2.6.2"
+        "2.6" => "2.6.11"
 }
 default[:redis][:version_aliases] = {
         "current" => "2.6",
