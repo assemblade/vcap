@@ -12,7 +12,7 @@
 DESC="nats-server"
 NAME=nats-server
 DAEMON_NAME=nats-server
-DAEMON=nats-server
+DAEMON=`which nats-server`
 DAEMON_ARGS="-d -c <%= node[:nats_server][:config] %>"
 
 PIDFILE=/var/run/nats_server.pid
