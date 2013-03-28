@@ -1,9 +1,9 @@
 include_attribute "deployment"
-default.set[:java7][:version] = "1.7.0"
-default.set[:java7][:java_home] = File.join(node[:deployment][:home], "deploy", "java7")
-default.set[:java7][:path] = "#{default[:java7][:home]}/bin"
+default[:java7][:version] = "1.7.0"
+default[:java7][:java_home] = File.join(node[:deployment][:home], "deploy", "java7")
+default[:java7][:path] = "#{default[:java7][:home]}/bin"
 
-default.set[:java7][:id] = {
+default[:java7][:id] = {
         "x86_64" => 'eyJzaWciOiI3K1oxZEhmT0lNdm95MHZPZXZLK0hqSVpsa2s9Iiwib2lkIjoi%0ANGU0ZTc4YmNhNjFlMTIyMjA0ZTRlOTg2NDNkOWFlMDUwYmMxODA2YTUxMDMi%0AfQ==%0A',
         "i686"   => 'eyJzaWciOiJRTTh1RnhJRWxRdDR2NTRZaThRYWRPUGFSeHM9Iiwib2lkIjoi%0ANGU0ZTc4YmNhNjFlMTIxMDA0ZTRlN2Q1MWQ5NTBlMDUwYmMxYjc1ZDZjZGEi%0AfQ==%0A'
 }
