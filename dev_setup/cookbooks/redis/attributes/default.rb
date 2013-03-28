@@ -12,7 +12,7 @@ default[:redis][:version_aliases] = {
         "current" => "2.6",
         "deprecated"    => "2.2"
 }
-default[:redis][:default_version] = "2.2"
+default[:redis][:default_version] = "2.6"
   
 default[:redis][:path] = File.join(node[:deployment][:home], "deploy", "redis")
 default[:redis][:runner] = node[:deployment][:user]
@@ -29,7 +29,8 @@ default[:redis][:id] = {
 default[:redis][:checksum] = {
   "2.2.15" => "4143b7fab809c5fe586265b4f792f346206a3a8082bbf79f70081a0538bab3cb",
   "2.4.17" => "3fae7c47ef84886ff65073593c91586bb675babaf702eb6f3b37855ab3066ebd",
-  "2.6.2"  => "b3b2e74ec8a13337e5e17cc24b0fecf5d612d6a0835d99bd1e337b391f20a46d"
+  "2.6.2"  => "b3b2e74ec8a13337e5e17cc24b0fecf5d612d6a0835d99bd1e337b391f20a46d",
+  "2.6.11" => "b0644669849a130659cf8dd48965cf116e4fe64a5bb86a239ea078d7464b6968"
 }
 
 default[:redis_gateway][:service][:timeout] = "15"
