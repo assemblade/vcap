@@ -22,3 +22,4 @@
 [submodule "tests"]
 	path = tests
 	url = https://github.com/cloudfoundry/vcap-yeti.git
+

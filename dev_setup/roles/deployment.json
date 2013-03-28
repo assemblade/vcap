@@ -1,0 +1,9 @@
+{
+  "name": "deployment",
+  "default_attributes": {},
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "CF Structure",
+  "chef_type": "role",
+  "run_list" : [ "recipe[deployment]" ]
+}

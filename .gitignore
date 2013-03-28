@@ -13,3 +13,5 @@ ci-working-dir
 .rvmrc
 *.pid
 vcap_service_backup_ctl
+/services
+/tests

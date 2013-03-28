@@ -5,7 +5,7 @@
   "json_class": "Chef::Role",
   "description": "Cloudfoundry Cloud Controller",
   "chef_type": "role",
-  "run_list" : [ "recipe[deployment]",
+  "run_list" : [
                  "recipe[essentials]",
                  "recipe[cloud_controller]"]
 }
