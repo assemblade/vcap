@@ -18,7 +18,7 @@ node[:redis][:supported_versions].each do |version, install_version|
   source_file_id, source_file_checksum = id_and_checksum_for_redis_version(install_version)
 
   
-  remote_file "#{node[:deployment][:setup_cache]}" do
+  remote_file "#{node[:deployment][:setup_cache]}/redis-#{install_version}.tar.gz" do
     source "#{node[:redis][:download_url]}/redis-#{install_version}.tar.gz"
     mode "0644"
     checksum "#{node[:redis][:checksum]}"
