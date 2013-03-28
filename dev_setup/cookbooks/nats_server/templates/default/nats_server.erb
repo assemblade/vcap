@@ -18,9 +18,6 @@ DAEMON_ARGS="-d -c <%= node[:nats_server][:config] %>"
 PIDFILE=/var/run/nats_server.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
-# Exit if the package is not installed
-[ -x "$DAEMON" ] || exit 0
-
 # Read configuration variable file if it is present
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
