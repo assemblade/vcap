@@ -8,10 +8,10 @@ module RubyInstall
     end
 
     ruby_tarball_path = File.join(node[:deployment][:setup_cache], "ruby-#{ruby_version}.tar.#{ruby_tarball_suffix}")
-    cf_remote_file ruby_tarball_path do
-      owner node[:deployment][:user]
-      id ruby_source_id
-      checksum node[:ruby][:checksums][ruby_version]
+    remote_file ruby_tarball_path do
+      source "#{node[:ruby][:download_url]}/ruby-#{ruby_version}.tar.bz2"
+      mode 00644
+      checksum node[:ruby][:checksums][ruby_version] # A SHA256 (or portion thereof) of the file.
     end
 
     directory ruby_path do
@@ -49,6 +49,11 @@ module RubyInstall
       owner node[:deployment][:user]
       id rubygems_id
       checksum rubygems_checksum
+    end
+    remote_file rubygem_tarball_path do
+      source "#{node[:ruby][:download_url]}/rubygems-#{rubygems_version}.tar.bz2"
+      mode 00644
+      checksum node[:ruby][:checksums][rubygems_version] # A SHA256 (or portion thereof) of the file.
     end
 
     bash "Install RubyGems #{ruby_path}" do
