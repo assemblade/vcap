@@ -30,7 +30,7 @@ module RubyInstall
         version_major=`echo $ruby_version | sed -e 's/-.*//g'`
         version_minor=`echo $ruby_version | sed -e 's/^[^-]*//g' -e 's/p//g'`
         [[ ! -e #{ruby_path}/bin/ruby ]] && rebuild_ruby=yes
-        [[ `#{ruby_path}/bin/ruby -v | grep $version_major | grep $version_minor | wc -l` -gt 0 ]] && rebuild_ruby=yes
+        [[ `#{ruby_path}/bin/ruby -v | grep $version_major | grep $version_minor | wc -l` -lt 1 ]] && rebuild_ruby=yes
         if [ $rebuild_ruby="yes" ]
         then
           # work around chef's decompression of source tarball before a more elegant
