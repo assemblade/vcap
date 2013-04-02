@@ -26,19 +26,24 @@ module RubyInstall
       cwd File.join("", "tmp")
       user node[:deployment][:user]
       code <<-EOH
-      # work around chef's decompression of source tarball before a more elegant
-      # solution is found
-      if [ "#{ruby_tarball_suffix}" = "bz2" ];then
-        tar xf #{ruby_tarball_path}
-      else
-        tar xzf #{ruby_tarball_path}
-      fi
-      cd ruby-#{ruby_version}
-      # See http://deadmemes.net/2011/10/28/rvm-install-fails-on-ubuntu-11-10/
-      sed -i 's/\\(OSSL_SSL_METHOD_ENTRY(SSLv2[^3]\\)/\\/\\/\\1/g' ./ext/openssl/ossl_ssl.c
-      ./configure --disable-pthread --prefix=#{ruby_path}
-      make
-      make install
+        ruby_version = #{node[:ruby18][:version]}
+        version_major = `echo $ruby_version | sed -e 's/-.*//g'`
+        version_minor =  `echo $ruby_version | sed -e 's/^[^-]*//g'` -e 's/p//g'`
+        if [ `#{ruby_path}/bin/ruby -v | grep $version_major | grep $version_minor | wc -l` -gt 0 ]        end
+          # work around chef's decompression of source tarball before a more elegant
+          # solution is found
+          if [ "#{ruby_tarball_suffix}" = "bz2" ];then
+            tar xf #{ruby_tarball_path}
+          else
+            tar xzf #{ruby_tarball_path}
+          fi
+          cd ruby-#{ruby_version}
+          # See http://deadmemes.net/2011/10/28/rvm-install-fails-on-ubuntu-11-10/
+          sed -i 's/\\(OSSL_SSL_METHOD_ENTRY(SSLv2[^3]\\)/\\/\\/\\1/g' ./ext/openssl/ossl_ssl.c
+          ./configure --disable-pthread --prefix=#{ruby_path}
+          make
+          make install
+        fi
       EOH
     end
   end
