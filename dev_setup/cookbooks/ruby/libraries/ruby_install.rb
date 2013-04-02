@@ -46,7 +46,7 @@ module RubyInstall
   def cf_rubygems_install(ruby_path, rubygems_version, rubygems_id, rubygems_checksum)
     rubygem_tarball_path = File.join(node[:deployment][:setup_cache], "rubygems-#{rubygems_version}.tgz")
     remote_file rubygem_tarball_path do
-      source "#{node[:ruby][:download_url]}/rubygems-#{rubygems_version}.tar.bz2"
+      source "#{node[:ruby][:download_url]}/rubygems-#{rubygems_version}.tgz"
       mode 00644
       checksum node[:ruby][:checksums][rubygems_version] # A SHA256 (or portion thereof) of the file.
     end
