@@ -44,7 +44,10 @@ module RubyInstall
   end
 
   def cf_rubygems_install(ruby_path, rubygems_version, rubygems_id, rubygems_checksum)
+    
     rubygem_tarball_path = File.join(node[:deployment][:setup_cache], "rubygems-#{rubygems_version}.tgz")
+      
+    Chef::Log.info("Downloading #{node[:ruby][:download_url]}/rubygems-#{rubygems_version}.tgz to #{rubygem_tarball_path}")
     remote_file rubygem_tarball_path do
       source "#{node[:ruby][:download_url]}/rubygems-#{rubygems_version}.tgz"
       mode 00644
