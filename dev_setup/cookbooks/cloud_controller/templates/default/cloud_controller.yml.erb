@@ -139,3 +139,8 @@ service_lifecycle:
 <% end %>
 
 runtimes_file: <%= File.join(node[:deployment][:config_path], "runtimes.yml") %>
+
+
+ha_pair:
+  node1: <%= node[:cloud_controller][:node1] %>
+  node2: <%= node[:cloud_controller][:node2] %>

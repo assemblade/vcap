@@ -7,7 +7,7 @@ module NodeInstall
     tarball_path = File.join(node[:deployment][:setup_cache], "node-v#{node_version}.tar.gz")
     
     remote_file tarball_path do
-      source "http://nodejs.org/dist/v#{node_version}/node-v#{node_version}-linux-x64.tar.gz"
+      source "#{node[:node][:download_url]}/node-v#{node_version}-linux-x64.tar.gz"
       mode 00644
       checksum node[:node][:checksums][node_version] # A SHA256 (or portion thereof) of the file.
     end
