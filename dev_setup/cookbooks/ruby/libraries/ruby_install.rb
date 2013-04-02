@@ -28,7 +28,7 @@ module RubyInstall
       code <<-EOH
         ruby_version=#{node[:ruby18][:version]}
         version_major=`echo $ruby_version | sed -e 's/-.*//g'`
-        version_minor=`echo $ruby_version | sed -e 's/^[^-]*//g'` -e 's/p//g'`
+        version_minor=`echo $ruby_version | sed -e 's/^[^-]*//g' -e 's/p//g'`
         if [ `#{ruby_path}/bin/ruby -v | grep $version_major | grep $version_minor | wc -l` -gt 0 ]
         then
           # work around chef's decompression of source tarball before a more elegant
