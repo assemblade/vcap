@@ -55,7 +55,7 @@ case "$1" in
         	# Router runs as root
         	echo "Starting router..."
         	cd  <%= File.join(node[:cloudfoundry][:home], "router", "bin") %>
-			nohup /usr/bin/ruby ./router -c <%= File.join(node[:deployment][:config_path]) %>/router.yml  >> <%= node[:stager][:logpath]  %> 2>&1 &
+			nohup /usr/bin/ruby ./router -c <%= File.join(node[:deployment][:config_path]) %>/router.yml  >> <%= node[:router][:logpath]  %> 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
