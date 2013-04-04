@@ -51,6 +51,6 @@ def action_create
     end
   end
 
-  enforce_ownership_and_permissions
+  #enforce_ownership_and_permissions
   @new_resource.updated_by_last_action?
 end
