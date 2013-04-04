@@ -227,20 +227,7 @@ when "ubuntu"
     owner node[:deployment][:user]
     mode 0755
   end
-  
-  template "nginx_public.conf" do
-    path File.join(nginx_path, "conf", "nginx_public.conf")
-    source "public-nginx.conf.erb"
-    owner node[:deployment][:user]
-    mode 0644
-  end
 
-  template "nginx_public" do
-    path File.join("", "etc", "init.d", "nginx_public")
-    source "public-nginx.erb"
-    owner node[:deployment][:user]
-    mode 0755
-  end
         
   template "nginx_sds.conf" do
     path File.join(nginx_path, "conf", "nginx_sds.conf")
