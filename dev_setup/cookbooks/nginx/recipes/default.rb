@@ -259,11 +259,6 @@ when "ubuntu"
     supports :status => true, :restart => true, :reload => true
     action [ :enable, :restart ]
   end
-
-  service "nginx_public" do
-    supports :status => true, :restart => true, :reload => true
-    action [ :enable, :restart ]
-  end
   
   service "nginx_sds" do
     supports :status => true, :restart => true, :reload => true
