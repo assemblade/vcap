@@ -34,7 +34,7 @@ bash "git clone stager" do
     if [ ! -e #{node[:cloudfoundry][:home]}/stager ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone https://github.com/cloudfoundry/stager.git
+      git clone #{node[:cloudfoundry][:git_url]}//stager.git
     fi
   EOH
 end

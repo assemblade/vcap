@@ -30,7 +30,7 @@ bash "git clone health_manager" do
     if [ ! -e #{node[:cloudfoundry][:home]}/health_manager ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone #{node[:health_manager][:github_url]}
+      git clone #{node[:cloudfoundry][:git_url]}/health_manager.git
     fi
   EOH
 end

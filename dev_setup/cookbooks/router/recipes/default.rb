@@ -11,7 +11,7 @@ bash "git clone router" do
     if [ ! -e #{node[:cloudfoundry][:home]}/router ]
     then
       cd #{node[:cloudfoundry][:home]}
-      git clone https://github.com/hayatoshimizuBSKYB/router.git
+      git clone #{node[:cloudfoundry][:git_url]}/router.git
     fi
   EOH
 end
