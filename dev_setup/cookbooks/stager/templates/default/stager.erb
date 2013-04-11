@@ -15,6 +15,12 @@
 
 . /etc/profile
 
+RVMENV=<%= node[:ruby][:rvmpath] %>/environments/default
+STAGERBIN=<%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %>
+STAGERUSER=<%= node[:deployment][:user] %>
+STAGERCONFIG=<%= File.join(node[:deployment][:config_path]) %>/stager.yml
+STAGERLOG=<%= node[:stager][:logpath] %>
+
 pid_of_service() {
     ps auxwww | egrep "ruby.*stager" | grep -v grep | awk '{print $2}'
 }
@@ -51,36 +57,19 @@ shutdown() {
 # See how we were called.
 case "$1" in
     start)
-        if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %> ] ; then
+        if [ -f $STAGERBIN ] ; then
         	# stager runs as root
         	echo "Starting stager..."
-        	cd  <%= File.join(node[:cloudfoundry][:home], "stager", "bin") %>
-			nohup /usr/bin/ruby ./stager -c <%= File.join(node[:deployment][:config_path]) %>/stager.yml  >> <%= node[:stager][:logpath]  %> 2>&1 &
-			
-#			RC=1;
-#			MAXTRIES=10
-#			LOOPCOUNT="0"
-#			while [ "${RC}" -ne "0" ] ; do
-#   			sleep 2;
-#   			echo "Trying WGET $LOOPCOUNT/$MAXTRIES"
-#    			wget -O - http://`hostname`:34501/healthz 2>&1
-#    			RC=$?
-#    			LOOPCOUNT=`expr $LOOPCOUNT + 1`
-#    			if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
-#        			break
-#    			fi
-#			done
-#			exit $RC			
-			 
+        	nohup su - $STAGERUSER -c ". $RVMENV; $STAGERBIN -c $STAGERCONFIG"  >> $STAGERLOG 2>&1 &			 
 		fi
         ;;
     stop)
-    	if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %>  ] ; then
+    	if [ -f $STAGERBIN  ] ; then
 			shutdown "USR2" 60;
 		fi
         ;;
     stop-graceful)
-		if [ -f <%= File.join(node[:cloudfoundry][:home], "stager", "bin", "stager") %>  ] ; then
+		if [ -f $STAGERBIN  ] ; then
 			shutdown "USR1" 0;
 		fi
         ;;
