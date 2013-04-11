@@ -15,6 +15,13 @@
 
 . /etc/profile
 
+
+RVMENV=<%= node[:ruby][:rvmpath] %>/environments/default
+DEAUSER=<%= node[:deployment][:user] %>
+DEAPATH=<%= File.join(node[:cloudfoundry][:home], "dea", "bin", "dea") %>
+DEACONFIG=<%= File.join(node[:deployment][:config_path]) %>/dea.yml
+DEALOG=<%= node[:dea][:logpath] %>
+
 pid_of_service() {
     ps auxwww | egrep "ruby.*dea" | grep -v grep | awk '{print $2}'
 }
@@ -51,11 +58,10 @@ shutdown() {
 # See how we were called.
 case "$1" in
     start)
-        if [ -f <%= File.join(node[:cloudfoundry][:home], "dea", "bin", "dea") %> ] ; then
+        if [ -f $DEAPATH ] ; then
         	# Dea runs as root
         	echo "Starting dea..."
-        	cd  <%= File.join(node[:cloudfoundry][:home], "dea", "bin") %>
-			nohup /usr/bin/ruby ./dea -c <%= File.join(node[:deployment][:config_path]) %>/dea.yml  >> <%= node[:dea][:logpath] %> 2>&1 &
+        	nohup su - $DEAUSER -c ". $RVMENV; $DEAPATH -c $DEACONFIG"  >> $DEALOG 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
@@ -75,12 +81,12 @@ case "$1" in
 		fi
         ;;
     stop)
-    	if [ -f /apps/nimbus/services/dea/bin/dea ] ; then
-			shutdown "USR2" 60;
+    	if [ -f $DEAPATH ] ; then
+			shutdown "USR2" 5;
 		fi
         ;;
     stop-graceful)
-		if [ -f /apps/nimbus/services/dea/bin/dea ] ; then
+		if [ -f $DEAPATH ] ; then
 			shutdown "USR1" 0;
 		fi
         ;;
