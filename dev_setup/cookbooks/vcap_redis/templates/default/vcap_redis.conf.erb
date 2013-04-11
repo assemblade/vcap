@@ -12,7 +12,7 @@ requirepass <%= node[:vcap_redis][:password] %>
 
 # Logging
 loglevel notice
-logfile <%= node[:deployment][:home] %>/log/vcap_redis.log
+logfile <%= node[:vcap_redis][:log_path] %>/vcap_redis.log
 
 # LRU - Evict any key (regardless of expiry being set)
 maxmemory 2000000000
