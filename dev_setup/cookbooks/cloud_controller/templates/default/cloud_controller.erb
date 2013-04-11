@@ -15,6 +15,12 @@
 
 . /etc/profile
 
+RVMENV=<%= node[:ruby][:rvmpath] %>/environments/default
+CCBIN=<%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin", "cloud_controller") %>
+CCUSER=<%= node[:deployment][:user] %>
+CCCONFIG=<%= File.join(node[:deployment][:config_path]) %>/cloud_controller.yml
+CCLOG=<%= node[:cloud_controller][:logpath]  %>
+
 pid_of_service() {
     ps auxwww | egrep "ruby.*cloud_controller" | grep -v grep | awk '{print $2}'
 }
@@ -51,11 +57,10 @@ shutdown() {
 # See how we were called.
 case "$1" in
     start)
-        if [ -f <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin", "cloud_controller") %> ] ; then
+        if [ -f $CCBIN ] ; then
         	# cloud_controller runs as root
         	echo "Starting cloud_controller..."
-        	cd  <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin") %>
-			nohup /usr/bin/ruby ./cloud_controller -c <%= File.join(node[:deployment][:config_path]) %>/cloud_controller.yml  >> <%= node[:cloud_controller][:logpath]  %> 2>&1 &
+        	nohup su - $CCUSER -c ". $RVMENV; $CCBIN -c $CCCONFIG"  >> $CCLOG 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
@@ -75,12 +80,12 @@ case "$1" in
 		fi
         ;;
     stop)
-    	if [ -f <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin", "cloud_controller") %> ] ; then
+    	if [ -f $CCBIN ] ; then
 			shutdown "USR2" 5;
 		fi
         ;;
     stop-graceful)
-		if [ -f <%= File.join(node[:cloudfoundry][:home], "cloud_controller", "cloud_controller", "bin", "cloud_controller") %> ] ; then
+		if [ -f $CCBIN ] ; then
 			shutdown "USR1" 0;
 		fi
         ;;
