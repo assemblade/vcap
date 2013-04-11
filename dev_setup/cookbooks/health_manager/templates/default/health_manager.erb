@@ -15,6 +15,12 @@
 
 . /etc/profile
 
+RVMENV=<%= node[:ruby][:rvmpath] %>/environments/default
+HMBIN=<%= File.join(node[:cloudfoundry][:home], "health_manager", "bin", "health_manager") %>
+HMUSER=<%= node[:deployment][:user] %>
+HMCONFIG=<%= File.join(node[:deployment][:config_path]) %>/health_manager.yml
+HMLOG=<%= node[:health_manager][:logpath] %>
+
 pid_of_service() {
     ps auxwww | egrep "ruby.*health_manager" | grep -v grep | awk '{print $2}'
 }
@@ -51,36 +57,19 @@ shutdown() {
 # See how we were called.
 case "$1" in
     start)
-        if [ -f <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin", "health_manager") %> ] ; then
+        if [ -f $HMBIN ] ; then
         	# health_manager runs as root
         	echo "Starting health_manager..."
-        	cd  <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin") %>
-			nohup /usr/bin/ruby ./health_manager -c <%= File.join(node[:deployment][:config_path]) %>/health_manager.yml  >> <%= node[:health_manager][:logpath]  %> 2>&1 &
-			
-#			RC=1;
-#			MAXTRIES=10
-#			LOOPCOUNT="0"
-#			while [ "${RC}" -ne "0" ] ; do
-#   			sleep 2;
-#   			echo "Trying WGET $LOOPCOUNT/$MAXTRIES"
-#    			wget -O - http://`hostname`:34501/healthz 2>&1
-#    			RC=$?
-#    			LOOPCOUNT=`expr $LOOPCOUNT + 1`
-#    			if [ "$LOOPCOUNT" -ge "$MAXTRIES" ] ; then
-#        			break
-#    			fi
-#			done
-#			exit $RC			
-			 
+        	nohup su - $HMUSER -c ". $RVMENV; $HMBIN -c $HMCONFIG"  >> $HMLOG 2>&1 &			 
 		fi
         ;;
     stop)
-    	if [ -f <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin", "health_manager") %> ] ; then
+    	if [ -f $HMBIN ] ; then
 			shutdown "USR2" 3;
 		fi
         ;;
     stop-graceful)
-		if [ -f <%= File.join(node[:cloudfoundry][:home], "health_manager", "bin", "health_manager") %> ] ; then
+		if [ -f $HMBIN ] ; then
 			shutdown "USR1" 0;
 		fi
         ;;
