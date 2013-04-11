@@ -61,7 +61,8 @@ case "$1" in
         if [ -f $DEAPATH ] ; then
         	# Dea runs as root
         	echo "Starting dea..."
-        	nohup ". $RVMENV; $DEAPATH -c $DEACONFIG"  >> $DEALOG 2>&1 &
+        	. $RVMENV
+        	nohup $DEAPATH -c $DEACONFIG  >> $DEALOG 2>&1 &
 			
 #			RC=1;
 #			MAXTRIES=10
