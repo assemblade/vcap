@@ -41,6 +41,7 @@ default[:cloud_controller][:staging][:play] = "play.yml"
 default[:cloud_controller][:builtin_services] = ["redis", "mongodb", "mysql", "neo4j", "rabbitmq", "postgresql", "vblob", "memcached", "filesystem", "elasticsearch", "couchdb", "echo"]
 
 # Default capacity
+default[:capacity][:max_memory] = 2048
 default[:capacity][:max_uris] = 4
 default[:capacity][:max_services] = 16
 default[:capacity][:max_apps] = 20
