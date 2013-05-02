@@ -65,7 +65,7 @@ case "$1" in
         ;;
     stop)
     	if [ -f $STAGERBIN  ] ; then
-			shutdown "USR2" 60;
+			shutdown "USR2" 1;
 		fi
         ;;
     stop-graceful)
