@@ -1,0 +1,173 @@
+{
+  "name": "cf_example_env",
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "description": "Cloud Foundry example environment",
+  "cookbook_versions": {
+    "build-essential": "1.2.1",
+    "tomcat": "0.0.1",
+    "nginx": "1.0.1",
+    "python": "0.0.1",
+    "postgresql": "0.0.1",
+    "java": "1.8.0",
+    "nginx_web_tier": "2.0.0"
+  },
+  "default_attributes": {
+  },
+  "override_attributes": {
+    "dea": {
+      "runtimes": ["ruby18", "ruby193", "node08", "java", "java7", "php", "python2"],
+      "secure": "true"
+    },
+    "java6": {
+      "home": "/usr/lib/jvm/default",
+      "path": "/usr/lib/jvm/default",
+      "java_home": "/usr/lib/jvm/default"
+    },
+    "nats_server": {
+      "host": "nats",
+      "password": "nats_ddc8dfa4rvy64dj3",
+      "user": "nats",
+      "port": "4222"
+    },
+    "maven": {
+      "path": "/apps/maven/apache-maven-3.0.4",
+      "base": "/apps/maven"
+    },
+    "deployment": {
+      "log_path": "/var/log/cloudfoundry",
+      "domain": "cf.com",
+      "home": "/apps/cloudfoundry",
+      "config_path": "/etc/cloudfoundry",
+      "setupcache": "/apps/cache/setup",
+      "path": "/apps/cloudfoundry",
+      "user": "vcap",
+      "setup_cache": "/apps/cache/setup",
+      "group": "vcap"
+    },
+    "uaa": {
+      "uris": "uaa",
+      "host": "",
+      "port": "8080"
+    },
+    "postgresql": {
+      "host": "postgres"
+    },
+    "chef": {
+      "ruby_version": "ruby-1.9.2-p320",
+      "ruby_gempath": "/usr/local/rvm/gems"
+    },
+    "ruby": {
+      "bundlepath": "/usr/local/rvm/gems/ruby-1.9.2-p320@global",
+      "path": "/usr/local/rvm/rubies/ruby-1.9.2-p320",
+      "rvmpath": "/usr/local/rvm",
+    },
+    "ruby18": {
+      "path": "/apps/cloudfoundry/rubies/ruby18"
+    },
+    "ruby193": {
+      "path": "/apps/cloudfoundry/rubies/ruby193"
+    },
+    "node": {
+      "download_url": "https://"
+    },
+    "node04": {
+      "path": "/apps/cloudfoundry/deploy/nodes/node-v0.4"
+    },
+    "node06": {
+      "path": "/apps/cloudfoundry/deploy/nodes/node-v0.6"
+    },
+    "node08": {
+      "path": "/apps/cloudfoundry/nodes/node-v0.8.18-linux-x64"
+    },
+    "ccdb": {
+      "server_root_user": "postgres",
+      "system_port": "5432",
+      "host": "postgres",
+      "service_port": "5432",
+      "password": "NS76B7MJ43K2H654J76B8",
+      "server_root_password": "",
+      "user": "ccdb",
+      "port": "5432",
+      "database": "ccdb",
+      "adapter": "postgresql"
+    },
+    "acmdb": {
+      "host": "postgres"
+    },
+    "uaadb": {
+      "host": "postgres"
+    },
+    "java": {
+      "jdk_version": "6",
+      "java_home": "/usr/lib/jvm/jdk1.6.0_43",
+      "home": "/usr/lib/jvm/jdk1.6.0_43",
+      "path": "/usr/lib/jvm/jdk1.6.0_43/bin"
+    },
+    "java6": {
+      "jdk_version": "6",
+      "java_home": "/usr/lib/jvm/jdk1.6.0_43",
+      "home": "/usr/lib/jvm/jdk1.6.0_43",
+      "path": "/usr/lib/jvm/jdk1.6.0_43/bin"
+    },
+    "java7": {
+      "available?": "true",
+      "jdk_version": "7",
+      "java_home": "/usr/lib/jvm/java-7-openjdk-amd64",
+      "home": "/usr/lib/jvm/java-7-openjdk-amd64",
+      "path": "/usr/lib/jvm/java-7-openjdk-amd64/bin"
+    },
+    "cloudfoundry": {
+      "home": "/apps/cloudfoundry",
+      "path": "/apps/cloudfoundry",
+      "git_url": "https://github.com/hayatoshimizuBSKYB"
+    },
+    "nginx": {
+      "domain": "cf.com",
+      "path": "/apps/cloudfoundry/nginx",
+      "vcap_log": "/var/log/cloudfoundry/vcap.access.log",
+      "log_home": "/var/log/cloudfoundry"
+    },
+    "cloud_controller": {
+      "builtin_services": "redis",
+      "git_url": "https://github.com/cloud_controller.git",
+      "admins": [
+                  "admin@admin.com",
+                ]
+    },
+    "health_manager": {
+      "bulk_api_host": "http://api.cf.com",
+      "github_url": "https://github.com/hayatoshimizuBSKYB/health_manager.git"
+    },
+    "serialization_data_server": {
+      "host": "10.50.57.11"
+    },
+    "redis": {
+      "version": "2.6.11",
+      "path": "/apps/cloudfoundry",
+      "port": "5454",
+    },
+    "vcap_redis": {
+      "host": "10.50.57.10",
+      "password": "330f130716bf53c55c5508896acb43b8",
+      "port": "5454"
+    },
+    "erlang": {
+      "path": "/apps/erlang"
+    },
+    "redis_resque": {
+      "host": ""
+    },
+    "secure_ebs": {
+      "size": 50,
+      "databag_id": "secure",
+      "device": "f",
+      "fstype": "ext4",
+      "mount_path": "/var/vcap",
+      "s3_bucket": "stratos-secure",
+      "s3_passphrase_file": "cf-luks",
+      "s3_passphrase_path": "/cf-uat",
+      "volume_id": "vol-31f47d09"
+    }
+  }
+}
